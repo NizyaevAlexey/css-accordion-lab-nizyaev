@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.accordion {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.accordion__item {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.accordion__item:last-child {
+    border-bottom: none;
+}
+
+.accordion__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.accordion__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: white;
+    user-select: none;
+}
+
+.accordion__title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.accordion__icon {
+    width: 24px;
+    height: 24px;
+    background-image: url('icons/plus.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s ease, background-image 0.3s ease;
+}
+
+.accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    background-color: #fafafa;
+}
+
+.accordion__image {
+    width: 100%;
+    display: block;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.accordion__input:checked ~ .accordion__content {
+    max-height: 500px;
+}
+
+.accordion__input:checked + .accordion__label .accordion__icon {
+    background-image: url('icons/minus.svg');
+}
+
+.accordion__input:checked + .accordion__label .accordion__title {
+    color: #ff6600;
+    font-weight: bold;
+}
+
+@media (hover: hover) {
+    .accordion__label:hover {
+        background-color: #f5f5f5;
+    }
+    
+    .accordion__label:hover .accordion__title {
+        color: #ff6600;
+    }
+    
+    .accordion__label:hover .accordion__icon {
+        background-image: url('icons/plus-hover.svg');
+        transform: scale(1.1);
+    }
+    
+    .accordion__item:not(:has(.accordion__input:checked)) .accordion__label:hover + .accordion__content {
+        max-height: 100px;
+        opacity: 0.8;
+    }
+    
+    .accordion__item:not(:has(.accordion__input:checked)) .accordion__label:hover + .accordion__content .accordion__image {
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 480px) {
+    .accordion {
+        max-width: 95%;
+        margin: 10px auto;
+    }
+    
+    .accordion__title {
+        font-size: 16px;
+    }
+    
+    .accordion__label {
+        padding: 15px;
+    }
+    
+    .accordion__icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+    .accordion {
+        max-width: 700px;
+    }
+    
+    .accordion__title {
+        font-size: 20px;
+    }
+    
+    .accordion__label {
+        padding: 18px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .accordion {
+        max-width: 800px;
+    }
+    
+    .accordion__title {
+        font-size: 24px;
+    }
+    
+    .accordion__label {
+        padding: 22px;
+    }
+}
+
+.accordion__label:focus-visible {
+    outline: 2px solid #ff6600;
+    outline-offset: -2px;
+}
+
+.accordion__input:checked + .accordion__label .accordion__icon {
+    transform: rotate(180deg);
+}
+
+.accordion__image {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.accordion__input:checked ~ .accordion__content .accordion__image {
+    opacity: 1;
+    transform: translateY(0);
+}
